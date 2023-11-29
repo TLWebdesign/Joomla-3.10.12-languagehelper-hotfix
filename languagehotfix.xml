@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="file" version="3.9" method="upgrade">
+    <name>languagehotfix</name>
+    <author>Tom van der Laan || TLWebdesign</author>
+    <creationDate>2023-11-29</creationDate>
+    <version>1.0.0</version>
+    <description><![CDATA[This fixes the language files security vulnerability in Joomla! 3.10.12. More info: <a href="https://developer.joomla.org/security-centre/919-20231101-core-exposure-of-environment-variables.html">https://developer.joomla.org/security-centre/919-20231101-core-exposure-of-environment-variables.html</a>]]>
+        </description>
+    <scriptfile>script.php</scriptfile>
+</extension>
