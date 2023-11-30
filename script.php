@@ -1,10 +1,15 @@
 <?php
+
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Installer\Installer;
 
 class  languagehotfixInstallerScript
 {
-    function preflight($type, $parent) {
-
+    function preflight($type, $parent)
+    {
         // Define the path to the target file in Joomla installation
         $targetFile = JPATH_LIBRARIES . '/src/Language/LanguageHelper.php';
 
@@ -14,17 +19,22 @@ class  languagehotfixInstallerScript
         // Check if replacement file exists
         if (!file_exists($replacementFile)) {
             JError::raiseWarning(500, "Replacement LanguageHelper.php not found in the package at: $replacementFile");
+
             return false;
         }
 
         // Replace the file
-        if (!JFile::copy($replacementFile, $targetFile)) {
+        if (!File::copy($replacementFile, $targetFile)) {
             JError::raiseWarning(500, "Error replacing LanguageHelper.php from $replacementFile to $targetFile");
+
             return false;
         }
 
         // Display a success message with the path information
-        JFactory::getApplication()->enqueueMessage("LanguageHelper.php replaced successfully. New file placed at: $targetFile", 'message');
+        Factory::getApplication()->enqueueMessage(
+            "LanguageHelper.php replaced successfully. New file placed at: $targetFile",
+            'message'
+        );
 
         // Remove this plugin to leave no trace
         $this->uninstallPlugin();
@@ -36,20 +46,18 @@ class  languagehotfixInstallerScript
     {
         $plugins = $this->findThisPlugin();
         foreach ($plugins as $plugin) {
-            \JInstaller::getInstance()->uninstall($plugin->type, $plugin->extension_id);
+            Installer::getInstance()->uninstall($plugin->type, $plugin->extension_id);
         }
     }
 
     private function findThisPlugin()
     {
-        $db = \JFactory::getDbo();
+        $db    = Factory::getDbo();
         $query = $db->getQuery(true)
-            ->select('extension_id')
-            ->select('type')
+            ->select(array('extension_id', 'type'))
             ->from('#__extensions')
-            ->where("`element` = 'languagehotfix'")
-            ->where("`type` = 'file'");
-
+            ->where($db->quoteName('element') . ' = ' . $db->quote('languagehotfix'))
+            ->where($db->quoteName('type') . ' = ' . $db->quote('file'));
         $db->setQuery($query);
 
         return $db->loadObjectList();
