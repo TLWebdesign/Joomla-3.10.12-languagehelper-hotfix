@@ -26,7 +26,32 @@ class  languagehotfixInstallerScript
         // Display a success message with the path information
         JFactory::getApplication()->enqueueMessage("LanguageHelper.php replaced successfully. New file placed at: $targetFile", 'message');
 
+        // Remove this plugin to leave no trace
+        $this->uninstallPlugin();
+
         return true;
     }
+
+    private function uninstallPlugin()
+    {
+        $plugins = $this->findThisPlugin();
+        foreach ($plugins as $plugin) {
+            \JInstaller::getInstance()->uninstall($plugin->type, $plugin->extension_id);
+        }
+    }
+
+    private function findThisPlugin()
+    {
+        $db = \JFactory::getDbo();
+        $query = $db->getQuery(true)
+            ->select('extension_id')
+            ->select('type')
+            ->from('#__extensions')
+            ->where("`element` = 'languagehotfix'")
+            ->where("`type` = 'file'");
+
+        $db->setQuery($query);
+
+        return $db->loadObjectList();
+    }
 }
-?>
