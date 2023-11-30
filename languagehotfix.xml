@@ -3,8 +3,8 @@
     <name>languagehotfix</name>
     <author>Tom van der Laan || TLWebdesign</author>
     <creationDate>2023-11-29</creationDate>
-    <version>1.0.0</version>
-    <description><![CDATA[This fixes the language files security vulnerability in Joomla! 3.10.12. More info: <a href="https://developer.joomla.org/security-centre/919-20231101-core-exposure-of-environment-variables.html">https://developer.joomla.org/security-centre/919-20231101-core-exposure-of-environment-variables.html</a>]]>
+    <version>1.0.1</version>
+    <description><![CDATA[This plugin fixes the language files security vulnerability in Joomla! 3.10.12. More info: <a href="https://developer.joomla.org/security-centre/919-20231101-core-exposure-of-environment-variables.html">https://developer.joomla.org/security-centre/919-20231101-core-exposure-of-environment-variables.html</a>. After applying the fix it auto-uninstalls itself.]]>
         </description>
     <scriptfile>script.php</scriptfile>
 </extension>
