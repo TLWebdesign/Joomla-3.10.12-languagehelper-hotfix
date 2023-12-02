@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="file" version="3.9" method="upgrade">
+<extension type="file" version="3.10" method="upgrade">
     <name>languagehotfix</name>
     <author>Tom van der Laan || TLWebdesign</author>
     <creationDate>2023-11-29</creationDate>
